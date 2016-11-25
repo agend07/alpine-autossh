@@ -1,8 +1,11 @@
 FROM alpine
 
-RUN    echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories \
-	&& apk add --update autossh@testing \
-	&& rm -rf /var/lib/apt/lists/*
+RUN 	wget http://www.harding.motd.ca/autossh/autossh-1.4e.tgz \
+	&& gunzip -c autossh-1.4e.tgz | tar xvf - \
+	&& cd autossh-1.4e \
+	&& ./configure \
+	&& make \
+	&& make install
 
 ENV \
 	AUTOSSH_LOGFILE=/dev/stdout \
